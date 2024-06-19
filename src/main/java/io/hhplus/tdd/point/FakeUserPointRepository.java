@@ -1,7 +1,5 @@
 package io.hhplus.tdd.point;
 
-import org.apache.catalina.User;
-
 import java.util.HashMap;
 import java.util.Map;
 
