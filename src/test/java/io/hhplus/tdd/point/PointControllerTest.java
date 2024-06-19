@@ -1,5 +1,9 @@
 package io.hhplus.tdd.point;
 
+import io.hhplus.tdd.point.controller.PointController;
+import io.hhplus.tdd.point.dto.UserPoint;
+import io.hhplus.tdd.point.service.PointService;
+import io.hhplus.tdd.point.util.NoUserException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,5 +1,12 @@
 package io.hhplus.tdd.point;
 
+import io.hhplus.tdd.point.dto.PointHistory;
+import io.hhplus.tdd.point.dto.UserPoint;
+import io.hhplus.tdd.point.repository.FakePointHistoryRepositoryImpl;
+import io.hhplus.tdd.point.repository.FakeUserPointRepositoryImpl;
+import io.hhplus.tdd.point.service.PointService;
+import io.hhplus.tdd.point.util.NoPointException;
+import io.hhplus.tdd.point.util.NoUserException;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;

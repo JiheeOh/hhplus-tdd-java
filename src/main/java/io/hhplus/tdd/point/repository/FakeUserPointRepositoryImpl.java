@@ -1,11 +1,11 @@
-package io.hhplus.tdd.point;
+package io.hhplus.tdd.point.repository;
 
-import org.springframework.stereotype.Repository;
+import io.hhplus.tdd.point.dto.UserPoint;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class FakeUserPointRepositoryImpl implements UserPointRepository{
+public class FakeUserPointRepositoryImpl implements UserPointRepository {
     public static Map<Long , UserPoint> fakeTable = new HashMap<>();
 
     @Override

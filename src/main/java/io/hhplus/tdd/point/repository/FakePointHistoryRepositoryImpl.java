@@ -1,9 +1,12 @@
-package io.hhplus.tdd.point;
+package io.hhplus.tdd.point.repository;
+
+import io.hhplus.tdd.point.dto.PointHistory;
+import io.hhplus.tdd.point.util.TransactionType;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FakePointHistoryRepositoryImpl implements PointHistoryRepository{
+public class FakePointHistoryRepositoryImpl implements PointHistoryRepository {
 
     public static List<PointHistory>  fakeTable = new ArrayList<>();
     private long cursor = 1;

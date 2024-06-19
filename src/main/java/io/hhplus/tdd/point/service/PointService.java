@@ -1,5 +1,12 @@
-package io.hhplus.tdd.point;
+package io.hhplus.tdd.point.service;
 
+import io.hhplus.tdd.point.dto.PointHistory;
+import io.hhplus.tdd.point.dto.UserPoint;
+import io.hhplus.tdd.point.repository.PointHistoryRepository;
+import io.hhplus.tdd.point.repository.UserPointRepository;
+import io.hhplus.tdd.point.util.NoPointException;
+import io.hhplus.tdd.point.util.NoUserException;
+import io.hhplus.tdd.point.util.TransactionType;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
