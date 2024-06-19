@@ -107,10 +107,6 @@ class PointControllerTest {
 
     }
 
-    @Test
-    @DisplayName("포인트 충전/이용 내역 조회 API")
-    void history() {
-    }
 
     /**
      * id와 point가 넘어올 시 충전된 값을 json형식으로 return하는 방식

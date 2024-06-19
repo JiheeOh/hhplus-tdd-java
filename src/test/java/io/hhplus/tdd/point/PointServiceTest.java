@@ -4,6 +4,8 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -11,19 +13,19 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class PointServiceTest {
 
     private PointService pointService;
-    private static final FakeUserPointRepository fakePointRepository = new FakeUserPointRepository();
+    private static final FakeUserPointRepositoryImpl fakePointRepository = new FakeUserPointRepositoryImpl();
 
+    private static final FakePointHistoryRepositoryImpl fakePointHistory = new FakePointHistoryRepositoryImpl();
     private long userId = 1L;
 
     @BeforeEach
     void setUp() {
-        pointService = new PointService(fakePointRepository);
+        pointService = new PointService(fakePointRepository, fakePointHistory);
     }
 
     @AfterEach
     void tearDown() {
         fakePointRepository.clear();
-        System.out.println("fake Repository 초기화");
     }
 
 
@@ -156,6 +158,49 @@ class PointServiceTest {
 
         //then
         assertThrows(NoUserException.class, () -> pointService.usePoint(userId, amount));
+
+    }
+
+    /**
+     * 등록되지 않은 사용자가 히스토리 조회 시도 시
+     * NoUserException 처리
+     */
+    @DisplayName("등록되지 않은 사용자가 히스토리 조회 시도 실패 처리 ")
+    @Test
+    void noUserNoHistory() {
+        // given
+        long newUserId = 2L;
+        fakePointRepository.remove(newUserId);
+
+        //then
+        assertThrows(NoUserException.class, () -> pointService.history(newUserId));
+    }
+
+    /**
+     * 사용자가 충전 / 이용할 경우 이력이 저장되는 지 확인
+     */
+    @DisplayName("포인트 충전/ 이용하는 경우 이력이 저장되는지 확인 ")
+    @Test
+    void checkHistoryTable() {
+        // given
+        long amount = 30L;
+        long useAmount = 20L;
+
+        // when : 1. 30충전 2. 20 사용
+        UserPoint chargePoint = pointService.charge(userId, amount);
+        UserPoint userPoint = pointService.usePoint(userId, useAmount);
+
+        //then :  남은 잔액 10
+        List<PointHistory> result = pointService.history(userId);
+
+
+        assertThat(result.get(0).amount()).as("history[%d]",0 ).isEqualTo(chargePoint.point());
+        assertThat(result.get(0).userId()).as("history[%d]",0 ).isEqualTo(chargePoint.id());
+        assertThat(result.get(0).updateMillis()).as("history[%d]",0 ).isEqualTo(chargePoint.updateMillis());
+
+        assertThat(result.get(1).amount()).as("history[%d]",1).isEqualTo(userPoint.point());
+        assertThat(result.get(1).userId()).as("history[%d]",1).isEqualTo(userPoint.id());
+        assertThat(result.get(1).updateMillis()).as("history[%d]",1).isEqualTo(userPoint.updateMillis());
 
     }
 
