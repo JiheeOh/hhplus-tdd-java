@@ -65,7 +65,7 @@ class PointControllerTest {
         long userId = 1L;
 
         //when
-        when(pointService.getPoint(userId)).thenThrow(UserNotFoundException.class);
+        when(pointService.getPoint(userId)).thenThrow(NoUserException.class);
 
         ResultActions resultActions = mockMvc.perform(get(String.format("%s/%d", url, userId))
                 .contentType(MediaType.APPLICATION_JSON));
@@ -142,8 +142,7 @@ class PointControllerTest {
                 .andExpect(jsonPath("updateMillis").value(updateMillis));
     }
 
-    @Test
-    @DisplayName("포인트 사용 API")
-    void use() {
-    }
+    // 등록되지 않은 사용자 / 사용할 수 있는 포인트가 없을 경우 발생시키는 exception을 굳이 해야할까 싶다...
+    // 로직이 없으니까 안하기로 생각함
+
 }
