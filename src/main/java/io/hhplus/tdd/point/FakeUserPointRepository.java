@@ -20,7 +20,11 @@ public class FakeUserPointRepository implements UserPointRepository{
         return fakeTable.get(id);
     }
 
-    public void clear(long id){
+    public void remove(long id){
         fakeTable.remove(id);
+    }
+
+    public void clear(){
+        fakeTable.clear();
     }
 }
