@@ -1,7 +1,9 @@
 package io.hhplus.tdd;
 
+import org.springframework.http.HttpStatus;
+
 public record ErrorResponse(
-        String code,
+        HttpStatus code,
         String message
 ) {
 }
