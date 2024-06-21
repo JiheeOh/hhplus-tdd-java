@@ -1,6 +1,7 @@
 package io.hhplus.tdd.point.service;
 
 import io.hhplus.tdd.point.dto.UserPoint;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,6 @@ public class ConcurrencyTest {
     @Autowired
     PointService pointService;
 
-
     /**
      * 동일 사용자가 여러번 요청을 보낼경우
      * 순차적으로 처리하여
@@ -29,7 +29,7 @@ public class ConcurrencyTest {
     @Test
     void oneUserMultiRequest() throws ExecutionException, InterruptedException {
         // given : 사용자 포인트 100 등록
-        long userId = 1L;
+        long userId = 2L;
         pointService.charge(userId, 100);
 
         // when
