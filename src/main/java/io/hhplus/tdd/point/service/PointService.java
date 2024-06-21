@@ -57,6 +57,11 @@ public class PointService {
             if (existData.updateMillis() != 0) {
                 amount = existData.point() + amount;
             }
+
+            // insertOrUpdate(),insert()가 lock이 안걸려있기 때문에 재진입이 필요없는 것 같습니다.
+            // 그런데 이 메소드들을 또 따로 lock을 걸어놨어야했나라는 의문이 있습니다.
+            // 상위 메소드에서 하나의 락으로 관리해도 된다 vs 하위 메소드들도 따로 락을 생성해서 관리해야한다
+            // 이 둘 중 뭐가 맞을까요...?
             UserPoint result = userPointRepository.insertOrUpdate(id, amount);
             pointHistoryRepository.insert(id, amount, TransactionType.CHARGE, result.updateMillis());
 
