@@ -1,8 +1,9 @@
 package io.hhplus.tdd.point.controller;
 
 import io.hhplus.tdd.point.dto.PointHistory;
-import io.hhplus.tdd.point.service.PointService;
 import io.hhplus.tdd.point.dto.UserPoint;
+import io.hhplus.tdd.point.service.PointService;
+import org.apache.coyote.BadRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -41,8 +42,11 @@ public class PointController {
     public UserPoint charge(
             @PathVariable long id,
             @RequestBody long amount
-    ) {
-        return pointService.charge(id,amount);
+    ) throws Exception {
+        if (amount < 0) {
+            throw new BadRequestException();
+        }
+        return pointService.charge(id, amount);
     }
 
 
@@ -50,7 +54,10 @@ public class PointController {
     public UserPoint use(
             @PathVariable long id,
             @RequestBody long amount
-    ) {
-        return pointService.usePoint(id,amount);
+    ) throws Exception {
+        if (amount < 0) {
+            throw new BadRequestException();
+        }
+        return pointService.usePoint(id, amount);
     }
 }
