@@ -201,13 +201,13 @@ class PointServiceTest {
         List<PointHistory> result = pointService.history(userId);
 
 
-        assertThat(result.get(0).amount()).as("history[%d]",0 ).isEqualTo(chargePoint.point());
-        assertThat(result.get(0).userId()).as("history[%d]",0 ).isEqualTo(chargePoint.id());
-        assertThat(result.get(0).updateMillis()).as("history[%d]",0 ).isEqualTo(chargePoint.updateMillis());
+        assertThat(result.get(0).amount()).as("history[%d]", 0).isEqualTo(chargePoint.point());
+        assertThat(result.get(0).userId()).as("history[%d]", 0).isEqualTo(chargePoint.id());
+        assertThat(result.get(0).updateMillis()).as("history[%d]", 0).isEqualTo(chargePoint.updateMillis());
 
-        assertThat(result.get(1).amount()).as("history[%d]",1).isEqualTo(userPoint.point());
-        assertThat(result.get(1).userId()).as("history[%d]",1).isEqualTo(userPoint.id());
-        assertThat(result.get(1).updateMillis()).as("history[%d]",1).isEqualTo(userPoint.updateMillis());
+        assertThat(result.get(1).amount()).as("history[%d]", 1).isEqualTo(userPoint.point());
+        assertThat(result.get(1).userId()).as("history[%d]", 1).isEqualTo(userPoint.id());
+        assertThat(result.get(1).updateMillis()).as("history[%d]", 1).isEqualTo(userPoint.updateMillis());
 
     }
 

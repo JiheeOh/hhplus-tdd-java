@@ -114,6 +114,7 @@ class PointControllerTest {
 
     /**
      * id와 point가 넘어올 시 충전된 값을 json형식으로 return하는 방식
+     *
      * @throws Exception
      */
     @Test
@@ -123,14 +124,14 @@ class PointControllerTest {
         long userId = 1L;
         long amount = 10L;
         long updateMillis = System.currentTimeMillis();
-        UserPoint userPoint = new UserPoint(userId,amount,updateMillis);
+        UserPoint userPoint = new UserPoint(userId, amount, updateMillis);
 
         // when
-        when(pointService.charge(userId,amount))
+        when(pointService.charge(userId, amount))
                 .thenReturn(userPoint);
 
         ResultActions resultActions = mockMvc.perform(patch(String.format("%s/%d/charge", url, userId))
-                        .content(String.valueOf(amount))
+                .content(String.valueOf(amount))
                 .contentType(MediaType.APPLICATION_JSON));
 
 
@@ -142,7 +143,48 @@ class PointControllerTest {
                 .andExpect(jsonPath("updateMillis").value(updateMillis));
     }
 
-    // 등록되지 않은 사용자 / 사용할 수 있는 포인트가 없을 경우 발생시키는 exception을 굳이 해야할까 싶다...
-    // 로직이 없으니까 안하기로 생각함
+    /**
+     * amount가 음수인 경우
+     * IllegalArgument 처리되는 지 테스트
+     */
+    @DisplayName("사용하려는 포인트가 음수일 경우 ")
+    @Test
+    void useMinusPoint() throws Exception {
+        // given
+        long userId = 1L;
+        long amount = -10L;
+
+        //when
+        ResultActions resultActions = mockMvc.perform(patch(String.format("%s/%d/use", url, userId))
+                .content(String.valueOf(amount))
+                .contentType(MediaType.APPLICATION_JSON));
+
+        //then
+        resultActions.andExpect(status().isBadRequest())
+                .andDo(print());
+
+    }
+
+    /**
+     * amount가 음수인 경우
+     * IllegalArgument 처리되는 지 테스트
+     */
+    @DisplayName("사용하려는 포인트가 음수일 경우 ")
+    @Test
+    void chargeMinusPoint() throws Exception {
+        // given
+        long userId = 1L;
+        long amount = -10L;
+
+        //when
+        ResultActions resultActions = mockMvc.perform(patch(String.format("%s/%d/charge", url, userId))
+                .content(String.valueOf(amount))
+                .contentType(MediaType.APPLICATION_JSON));
+
+        //then
+        resultActions.andExpect(status().isBadRequest())
+                .andDo(print());
+
+    }
 
 }
