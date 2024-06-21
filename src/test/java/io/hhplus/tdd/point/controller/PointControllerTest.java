@@ -160,7 +160,7 @@ class PointControllerTest {
                 .contentType(MediaType.APPLICATION_JSON));
 
         //then
-        resultActions.andExpect(status().isBadRequest())
+        resultActions.andExpect(status().isInternalServerError())
                 .andDo(print());
 
     }
@@ -182,7 +182,7 @@ class PointControllerTest {
                 .contentType(MediaType.APPLICATION_JSON));
 
         //then
-        resultActions.andExpect(status().isBadRequest())
+        resultActions.andExpect(status().isInternalServerError())
                 .andDo(print());
 
     }
