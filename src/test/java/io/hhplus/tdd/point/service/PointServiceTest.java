@@ -82,7 +82,7 @@ class PointServiceTest {
         fakePointRepository.remove(userId);
 
         //when
-        UserPoint result = pointService.charge(userId, amount);
+        UserPoint result = pointService.charge(newUser, amount);
 
         //Then
         assertThat(result.id()).isEqualTo(expectedPoint.id());
